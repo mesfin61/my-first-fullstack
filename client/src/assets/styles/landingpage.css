@@ -1,0 +1,338 @@
+/* CYBERPUNK 2077 THEME */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@500;700&display=swap');
+
+:root {
+  --neon-pink: #ff2a6d;
+  --neon-blue: #05d9e8;
+  --neon-purple: #d300c5;
+  --neon-green: #00ff9d;
+  --dark-bg: #0d0221;
+  --darker-bg: #070113;
+  --text-glow: #f8f8f8;
+  --text-dim: #a5a5a5;
+}
+
+
+body {
+  background-color: var(--dark-bg);
+  margin: 0;
+  overflow-x: hidden;
+  position: relative;
+  font-family: 'Rajdhani', sans-serif;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    linear-gradient(rgba(5, 217, 232, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(5, 217, 232, 0.03) 1px, transparent 1px);
+  background-size: 20px 20px;
+  z-index: -1;
+  animation: gridScroll 20s linear infinite;
+}
+
+@keyframes gridScroll {
+  from { background-position: 0 0; }
+  to { background-position: 20px 20px; }
+}
+
+/* === MAIN CONTAINER (Glowing Border) === */
+.landing-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: rgba(13, 2, 33, 0.7);
+  border-left: 1px solid var(--neon-pink);
+  border-right: 1px solid var(--neon-blue);
+  box-shadow: 
+    0 0 30px rgba(255, 42, 109, 0.2),
+    0 0 60px rgba(5, 217, 232, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+/* CRT SCANLINES EFFECT */
+.landing-page:hover::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    rgba(0, 0, 0, 0) 50%, 
+    rgba(255, 255, 255, 0.02) 50%
+  );
+  background-size: 100% 4px;
+  pointer-events: none;
+  animation: scanlines 1s linear infinite;
+}
+
+@keyframes scanlines {
+  from { background-position: 0 0; }
+  to { background-position: 0 4px; }
+}
+
+/* === HEADER (Glitch Logo) === */
+.landing-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--neon-blue);
+}
+
+.logo {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 3.5rem;
+  font-weight: 700;
+  background: linear-gradient(90deg, var(--neon-pink), var(--neon-green));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 
+    0 0 10px var(--neon-pink),
+    0 0 20px var(--neon-purple);
+  letter-spacing: 3px;
+  animation: flicker 3s infinite alternate, pulse 2s infinite;
+}
+
+@keyframes flicker {
+  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+    text-shadow: 
+      0 0 5px var(--neon-pink),
+      0 0 10px var(--neon-pink),
+      0 0 20px var(--neon-purple),
+      0 0 30px var(--neon-purple);
+  }
+  20%, 24%, 55% {
+    text-shadow: none;
+  }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.8; text-shadow: 0 0 30px var(--neon-green); }
+}
+
+/* === MOTTO (Laser Grid) === */
+.motto {
+  text-align: center;
+  padding: 80px 0;
+  margin: 40px 0;
+  position: relative;
+  background: linear-gradient(90deg, 
+    rgba(255, 42, 109, 0.1) 0%, 
+    rgba(5, 217, 232, 0.1) 50%, 
+    rgba(255, 42, 109, 0.1) 100%);
+  clip-path: polygon(0 10%, 100% 0, 100% 90%, 0 100%);
+}
+
+.motto h1 {
+  font-size: 4rem;
+  margin-bottom: 20px;
+  background: linear-gradient(90deg, var(--neon-blue), var(--neon-green));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 0 15px var(--neon-blue);
+  animation: textGlow 2s infinite alternate;
+}
+
+.motto p {
+  font-size: 1.5rem;
+  color: var(--text-dim);
+  letter-spacing: 1px;
+}
+
+@keyframes textGlow {
+  to { text-shadow: 0 0 25px var(--neon-blue); }
+}
+
+/* === LANDING CONTENT (Cyber Panels) === */
+.landing-content {
+  display: flex;
+  gap: 30px;
+  margin: 50px 0;
+}
+
+.about {
+  flex: 1;
+  padding: 30px;
+  background: rgba(13, 2, 33, 0.7);
+  border: 1px solid var(--neon-purple);
+  box-shadow: 0 0 20px rgba(211, 0, 197, 0.2);
+  backdrop-filter: blur(5px);
+  transition: all 0.3s ease;
+}
+
+.about:hover {
+  box-shadow: 0 0 30px rgba(211, 0, 197, 0.4);
+  transform: translateY(-5px);
+}
+
+.about h2 {
+  font-size: 2.2rem;
+  margin-bottom: 20px;
+  color: var(--neon-pink);
+  font-family: 'Orbitron', sans-serif;
+  letter-spacing: 1px;
+}
+
+.about p {
+  line-height: 1.8;
+  color: var(--text-dim);
+  font-size: 1.1rem;
+}
+
+.account {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+  background: rgba(13, 2, 33, 0.7);
+  border: 1px solid var(--neon-blue);
+  box-shadow: 0 0 20px rgba(5, 217, 232, 0.2);
+  backdrop-filter: blur(5px);
+  transition: all 0.3s ease;
+}
+
+.account:hover {
+  box-shadow: 0 0 30px rgba(5, 217, 232, 0.4);
+  transform: translateY(-5px);
+}
+
+/* .nav-link {
+  display: inline-block;
+  padding: 16px 45px;
+  background: rgba(0, 255, 157, 0.1);
+  color: var(--neon-green);
+  border: 1px solid var(--neon-green);
+  font-weight: 700;
+  letter-spacing: 2px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.5s;
+  text-decoration: none;
+  text-transform: uppercase;
+} */
+/* 
+.nav-link::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    to bottom right, 
+    transparent 45%, 
+    var(--neon-green) 50%, 
+    transparent 55%
+  );
+  transform: rotate(30deg);
+  animation: plasmaCore 3s linear infinite;
+}
+
+@keyframes plasmaCore {
+  to { transform: rotate(390deg); }
+} */
+
+/* .nav-link:hover {
+  background: rgba(0, 255, 157, 0.3);
+  box-shadow: 
+    0 0 15px var(--neon-green),
+    0 0 30px rgba(0, 255, 157, 0.3);
+  transform: translateY(-3px);
+} */
+
+/* === FOOTER (Neon Bottom Bar) === */
+.landing-footer {
+  margin-top: auto;
+  text-align: center;
+  padding: 20px;
+  background: rgba(13, 2, 33, 0.7);
+  border-top: 1px solid var(--neon-purple);
+  color: var(--text-dim);
+  letter-spacing: 1px;
+}
+
+.landing-footer p {
+  font-size: 0.9rem;
+}
+
+
+@media (max-width: 768px) {
+  .landing-content {
+    flex-direction: column;
+    padding: 20px;
+  }
+
+  /* .about,
+  .account {
+    width: 100%;
+  } */
+
+  .account {
+    margin-top: 20px;
+  }
+
+  .motto h1 {
+    font-size: 24px;
+  }
+
+  .motto p {
+    font-size: 16px;
+  }
+
+  .logo {
+    font-size: 26px;
+  }
+}
+
+/* 🔽 Media Query: Phones */
+@media (max-width: 480px) {
+  .landing-header,
+  .landing-footer {
+    padding: 15px;
+  }
+
+  .motto {
+    margin: 20px 0;
+  }
+
+  .motto h1 {
+    font-size: 20px;
+  }
+
+  .motto p,
+  .about p {
+    font-size: 14px;
+  }
+
+  .landing-content {
+    margin: 0 auto;
+  }
+
+  .account {
+    padding: 10px 40px;
+  }
+
+  .logo {
+    font-size: 22px;
+  }
+
+  .about h2 {
+    font-size: 20px;
+  }
+}
