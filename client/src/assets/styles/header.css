@@ -37,7 +37,7 @@
   left: 0;
   width: 0;
   height: 2px;
-  background-color: #1f5096;
+  background-color: #102542;
   transition: width 0.3s ease;
 }
 
@@ -63,6 +63,6 @@
 }
 
 .profile .pro:hover {
-  font-size: 50px;
+  font-size: 46px;
   color: #1f5096;
 }
