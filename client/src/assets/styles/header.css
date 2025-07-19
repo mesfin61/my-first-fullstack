@@ -1,0 +1,68 @@
+.header {
+  background-color: #f87060;
+  margin: 0;
+  padding: 5px;
+  display: flex;
+  flex-direction: row;
+  color: #102542;
+  justify-content: space-between;
+}
+
+.header .logo {
+  margin: 0;
+  padding: 20px 25px;
+  background: linear-gradient(360deg, rgb(119, 238, 119), rgb(54, 42, 165));
+  background-clip: text;
+  color: transparent;
+}
+
+.header .nav-link {
+  display: flex;
+  gap: 2rem;
+  place-items: center;
+}
+
+.header .nav-link a {
+  color: #102542;
+  text-decoration: none;
+  font-size: 1.3rem;
+  position: relative;
+  padding: 0.5rem 0;
+}
+
+.nav-link a::after {
+  content: "";
+  position: absolute;
+  bottom: 5px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: #1f5096;
+  transition: width 0.3s ease;
+}
+
+.header .nav-link a:hover {
+  color: #1f5096;
+  text-shadow: #1f5096;
+}
+
+.header .nav-link a:hover::after {
+  width: 100%;
+}
+
+.header .profile {
+  place-items: center;
+}
+.header .profile .pro {
+  place-items: center;
+  color: #102542;
+  font-size: 45px;
+  padding-right: 20px;
+  padding-top: 15px;
+  transition: all 0.3s ease;
+}
+
+.profile .pro:hover {
+  font-size: 50px;
+  color: #1f5096;
+}
