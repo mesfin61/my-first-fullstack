@@ -1,46 +1,61 @@
-/* CYBERPUNK LOGIN FORM */
+:root {
+  --neon-pink: #ff2a6d;
+  --neon-blue: #05d9e8;
+  --neon-green: #00ff9d;
+  --text-dim: #ccc;
+  --text-glow: #ffffff;
+}
+
 .login-container {
-  max-width: 450px;
+  max-width: 500px;
   width: 100%;
-  padding: 2.5rem;
-  /* margin: 2rem auto; */
-  background: rgba(13, 2, 33, 0.85);
-  border: 1px solid var(--neon-pink);
-  box-shadow: 
-    0 0 15px rgba(255, 42, 109, 0.3),
-    0 0 30px rgba(255, 42, 109, 0.1);
-  backdrop-filter: blur(5px);
+  padding: 2.5rem 3.5rem 2.5rem 2.5rem;
+  margin: 2rem auto;
+  background: rgba(13, 2, 33, 0.9);
+  border: 2px solid var(--neon-pink);
+  box-shadow: 0 0 20px var(--neon-pink), 0 0 40px rgba(255, 42, 109, 0.2);
+  border-radius: 1rem;
+  backdrop-filter: blur(6px);
   position: relative;
+  font-family: "Rajdhani", sans-serif;
   overflow: hidden;
-  font-family: 'Rajdhani', sans-serif;
-  animation: borderGlow 3s infinite alternate;
+  animation: borderGlow 4s infinite alternate;
 }
 
 @keyframes borderGlow {
-  0% { border-color: var(--neon-pink); box-shadow: 0 0 15px rgba(255, 42, 109, 0.3); }
-  50% { border-color: var(--neon-blue); box-shadow: 0 0 15px rgba(5, 217, 232, 0.3); }
-  100% { border-color: var(--neon-purple); box-shadow: 0 0 15px rgba(211, 0, 197, 0.3); }
+  0% {
+    border-color: var(--neon-pink);
+    box-shadow: 0 0 20px var(--neon-pink);
+  }
+  50% {
+    border-color: var(--neon-blue);
+    box-shadow: 0 0 20px var(--neon-blue);
+  }
+  100% {
+    border-color: var(--neon-green);
+    box-shadow: 0 0 20px var(--neon-green);
+  }
 }
 
 .login-container h2 {
-  text-align: center;
-  color: var(--neon-pink);
-  margin-bottom: 2rem;
-  font-family: 'Orbitron', sans-serif;
+  background: linear-gradient(to right, #3001ff, #ff05c9, #ff0909, #d5e404);
+  background-clip: text;
+  color: transparent;
   font-size: 2rem;
-  letter-spacing: 3px;
-  text-shadow: 0 0 10px var(--neon-pink);
+  text-align: center;
   text-transform: uppercase;
+  font-family: "Orbitron", sans-serif;
+  margin-bottom: 2rem;
 }
 
-.login-form {
+.login-container .login-form {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
 }
 
 .login-form label {
-  color: var(--neon-blue);
+  color: white;
   font-weight: 700;
   letter-spacing: 1px;
   text-transform: uppercase;
@@ -50,27 +65,29 @@
 .login-form input {
   width: 100%;
   padding: 1rem;
-  background: rgba(255, 42, 109, 0.05);
+  background: rgba(255, 255, 255, 0.05);
   border: 1px solid var(--neon-blue);
   color: var(--text-glow);
-  font-family: 'Rajdhani', sans-serif;
-  transition: all 0.3s;
+  font-family: "Rajdhani", sans-serif;
+  border-radius: 0.5rem;
+  transition: all 0.3s ease-in-out;
 }
 
 .login-form input:focus {
   outline: none;
-  border-color: var(--neon-pink);
-  box-shadow: 0 0 10px var(--neon-pink);
+  border-color: var(--neon-green);
+  box-shadow: 0 0 12px var(--neon-green);
 }
 
 .login-form input::placeholder {
   color: var(--text-dim);
-  opacity: 0.7;
+  font-style: italic;
+  text-shadow: 0 0 4px rgba(255, 255, 255, 0.1);
 }
 
 .login-form p {
   text-align: center;
-  color: var(--text-dim);
+  color: white;
   margin-top: -0.5rem;
 }
 
@@ -78,10 +95,10 @@
   color: var(--neon-green);
   cursor: pointer;
   font-weight: 700;
-  text-shadow: 0 0 5px rgba(0, 255, 157, 0.3);
-  transition: all 0.3s ease;
   position: relative;
   padding: 0 2px;
+  text-shadow: 0 0 5px rgba(0, 255, 157, 0.3);
+  transition: all 0.3s ease;
 }
 
 .login-form span:hover {
@@ -90,7 +107,7 @@
 }
 
 .login-form span::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: -2px;
   left: 0;
@@ -108,35 +125,27 @@
   background: var(--neon-blue);
 }
 
-.login-form a {
-  color: var(--neon-green);
-  text-decoration: none;
-  font-weight: 700;
-  transition: all 0.3s;
-}
-
-.login-form a:hover {
-  text-shadow: 0 0 5px var(--neon-green);
-}
-
 .login-form button {
   padding: 1rem;
-  background: rgba(255, 42, 109, 0.1);
+  background: rgba(255, 255, 255, 0.05);
   border: 1px solid var(--neon-pink);
   color: var(--neon-pink);
-  font-family: 'Orbitron', sans-serif;
+  font-family: "Orbitron", sans-serif;
   font-weight: 700;
   letter-spacing: 2px;
-  cursor: pointer;
-  transition: all 0.3s;
   text-transform: uppercase;
+  cursor: pointer;
+  border-radius: 0.5rem;
   position: relative;
   overflow: hidden;
+  transition: all 0.3s;
 }
 
 .login-form button:hover {
-  background: rgba(255, 42, 109, 0.3);
-  box-shadow: 0 0 15px var(--neon-pink);
+  background: rgba(255, 42, 109, 0.2);
+  color: #fff;
+  border-color: var(--neon-green);
+  box-shadow: 0 0 15px var(--neon-green);
   transform: translateY(-2px);
 }
 
@@ -148,18 +157,20 @@
   width: 200%;
   height: 200%;
   background: linear-gradient(
-    to bottom right, 
-    transparent 45%, 
-    var(--neon-pink) 50%, 
+    to bottom right,
+    transparent 45%,
+    var(--neon-pink) 50%,
     transparent 55%
   );
   transform: rotate(30deg);
   animation: plasmaCore 3s linear infinite;
-  opacity: 0.5;
+  opacity: 0.3;
 }
 
 @keyframes plasmaCore {
-  to { transform: rotate(390deg); }
+  to {
+    transform: rotate(390deg);
+  }
 }
 
 .message {
@@ -172,16 +183,16 @@
   background: rgba(0, 255, 157, 0.1);
   color: var(--neon-green);
   text-shadow: 0 0 5px var(--neon-green);
+  border-radius: 0.5rem;
 }
 
 .message.error {
-  border-color: var(--neon-pink);
+  border-color: red;
   background: rgba(255, 42, 109, 0.1);
-  color: var(--neon-pink);
-  text-shadow: 0 0 5px var(--neon-pink);
+  color: red;
+  text-shadow: 0 0 5px red;
 }
 
-/* CRT SCANLINES EFFECT */
 .login-container::before {
   content: "";
   position: absolute;
@@ -190,18 +201,22 @@
   width: 100%;
   height: 100%;
   background: linear-gradient(
-    rgba(0, 0, 0, 0) 50%, 
+    rgba(0, 0, 0, 0) 50%,
     rgba(255, 255, 255, 0.02) 50%
   );
   background-size: 100% 4px;
   pointer-events: none;
   animation: scanlines 1s linear infinite;
-  opacity: 0.3;
+  opacity: 0.25;
 }
 
 @keyframes scanlines {
-  from { background-position: 0 0; }
-  to { background-position: 0 4px; }
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 0 4px;
+  }
 }
 
 @media (max-width: 768px) {
@@ -209,11 +224,11 @@
     padding: 1.5rem;
     margin: 1rem;
   }
-  
+
   .login-container h2 {
     font-size: 1.5rem;
   }
-  
+
   .login-form input,
   .login-form button {
     padding: 0.8rem;

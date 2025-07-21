@@ -1,62 +1,57 @@
-
-.signup-container {
-  max-width: 450px;
-  width: 100%;
-  padding: 2.5rem;
-  background: rgba(13, 2, 33, 0.85);
-  border: 1px solid var(--neon-green);
-  box-shadow: 
-    0 0 15px rgba(0, 255, 157, 0.3),
-    0 0 30px rgba(0, 255, 157, 0.1);
-  backdrop-filter: blur(5px);
-  position: relative;
-  overflow: hidden;
-  font-family: 'Rajdhani', sans-serif;
-  animation: borderPulse 4s infinite alternate;
+:root {
+  --neon-pink: #ff2a6d;
+  --neon-blue: #05d9e8;
+  --neon-green: #00ff9d;
+  --text-dim: #ccc;
+  --text-glow: #ffffff;
 }
 
-@keyframes borderPulse {
-  0% { border-color: var(--neon-green); }
-  33% { border-color: var(--neon-blue); }
-  66% { border-color: var(--neon-purple); }
-  100% { border-color: var(--neon-pink); }
+.signup-container {
+  max-width: 500px;
+  width: 100%;
+  margin: 2rem auto;
+  padding: 2.5rem 3.5rem 2.5rem 2.5rem;
+  background: rgba(13, 2, 33, 0.92);
+  border: 2px solid var(--neon-pink);
+  border-radius: 1rem;
+  box-shadow: 0 0 20px var(--neon-pink), 0 0 40px rgba(255, 42, 109, 0.2);
+  font-family: "Rajdhani", sans-serif;
+  position: relative;
+  overflow: hidden;
+  animation: borderGlow 4s infinite alternate;
+  backdrop-filter: blur(6px);
+}
+
+@keyframes borderGlow {
+  0% {
+    border-color: var(--neon-pink);
+    box-shadow: 0 0 20px var(--neon-pink);
+  }
+  50% {
+    border-color: var(--neon-blue);
+    box-shadow: 0 0 20px var(--neon-blue);
+  }
+  100% {
+    border-color: var(--neon-green);
+    box-shadow: 0 0 20px var(--neon-green);
+  }
 }
 
 .signup-container h2 {
-  text-align: center;
-  color: var(--neon-green);
-  margin-bottom: 2rem;
-  font-family: 'Orbitron', sans-serif;
+  background: linear-gradient(to right, #3001ff, #ff05c9, #ff0909, #d5e404);
+  background-clip: text;
+  color: transparent;
   font-size: 2rem;
-  letter-spacing: 3px;
-  text-shadow: 
-    0 0 5px var(--neon-green),
-    0 0 15px var(--neon-green);
+  text-align: center;
   text-transform: uppercase;
-  position: relative;
-}
-
-.signup-container h2::after {
-  content: "";
-  position: absolute;
-  bottom: -10px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 50%;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, var(--neon-green), transparent);
+  font-family: "Orbitron", sans-serif;
+  margin-bottom: 2rem;
 }
 
 .signup-form {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-}
-
-.signup-form p {
-  text-align: center;
-  color: var(--text-dim);
-  margin-top: -0.5rem;
+  gap: 1.2rem;
 }
 
 .input-group {
@@ -66,101 +61,86 @@
 .signup-input {
   width: 100%;
   padding: 1rem;
-  background: rgba(0, 255, 157, 0.05);
-  border: 1px solid var(--neon-green);
-  color: white;
-  font-family: 'Rajdhani', sans-serif;
-  font-weight: 500;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  transition: all 0.3s;
-  position: relative;
-  z-index: 1;
-}
-
-.signup-input::placeholder {
-  color: var(--text-dim);
-  opacity: 0.7;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--neon-blue);
+  color: var(--text-glow);
+  font-family: "Rajdhani", sans-serif;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  transition: all 0.3s ease-in-out;
 }
 
 .signup-input:focus {
   outline: none;
-  box-shadow: 
-    0 0 10px var(--neon-green),
-    0 0 20px rgba(0, 255, 157, 0.2);
+  border-color: var(--neon-green);
+  box-shadow: 0 0 15px var(--neon-green);
+}
+
+.signup-input::placeholder {
+  color: var(--text-dim);
+  font-style: italic;
+  text-shadow: 0 0 3px rgba(255, 255, 255, 0.1);
 }
 
 .input-highlight {
   position: absolute;
   bottom: 0;
   left: 0;
-  width: 0;
   height: 2px;
+  width: 0;
   background: var(--neon-green);
-  transition: width 0.4s;
-  z-index: 2;
+  transition: 0.3s ease-in-out;
 }
 
-.signup-input:focus ~ .input-highlight {
+.signup-input:focus + .input-highlight {
   width: 100%;
 }
 
 .signup-button {
-  position: relative;
-  padding: 1.2rem 2rem;
-  background: rgba(0, 255, 157, 0.1);
-  border: 1px solid var(--neon-green);
-  color: var(--neon-green);
-  font-family: 'Orbitron', sans-serif;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--neon-pink);
+  color: var(--neon-pink);
+  font-family: "Orbitron", sans-serif;
   font-weight: 700;
   letter-spacing: 2px;
   text-transform: uppercase;
   cursor: pointer;
+  border-radius: 0.5rem;
+  position: relative;
   overflow: hidden;
   transition: all 0.3s;
-  margin-top: 1rem;
 }
 
-.signup-button-text {
-  position: relative;
-  z-index: 1;
+.signup-button:hover {
+  background: rgba(255, 42, 109, 0.2);
+  color: #fff;
+  border-color: var(--neon-green);
+  box-shadow: 0 0 15px var(--neon-green);
+  transform: translateY(-2px);
 }
 
 .signup-button-glitch {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
   background: linear-gradient(
-    90deg,
+    to bottom right,
     transparent 45%,
-    var(--neon-green) 50%,
+    var(--neon-pink) 50%,
     transparent 55%
   );
-  opacity: 0;
-  animation: glitchEffect 2s infinite;
-}
-
-.signup-button:hover {
-  background: rgba(0, 255, 157, 0.3);
-  box-shadow: 
-    0 0 15px var(--neon-green),
-    0 0 30px rgba(0, 255, 157, 0.2);
-  transform: translateY(-3px);
-}
-
-.signup-button:hover .signup-button-glitch {
+  transform: rotate(30deg);
+  animation: plasmaCore 3s linear infinite;
   opacity: 0.3;
 }
 
-@keyframes glitchEffect {
-  0% { transform: translateX(-10px); opacity: 0; }
-  20% { transform: translateX(10px); opacity: 0.3; }
-  40% { transform: translateX(-5px); opacity: 0.1; }
-  60% { transform: translateX(5px); opacity: 0.2; }
-  80% { transform: translateX(-2px); opacity: 0.1; }
-  100% { transform: translateX(0); opacity: 0; }
+@keyframes plasmaCore {
+  to {
+    transform: rotate(390deg);
+  }
 }
 
 .message {
@@ -169,88 +149,40 @@
   margin-bottom: 1rem;
   font-weight: 700;
   letter-spacing: 1px;
+  border-radius: 0.5rem;
   border: 1px solid var(--neon-green);
   background: rgba(0, 255, 157, 0.1);
+  color: var(--neon-green);
   text-shadow: 0 0 5px var(--neon-green);
 }
 
 .message.error {
-  border-color: var(--neon-pink);
+  border-color: red;
   background: rgba(255, 42, 109, 0.1);
-  text-shadow: 0 0 5px var(--neon-pink);
-  color: var(--neon-pink);
-}
-
-/* CRT SCANLINES */
-.signup-container::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    rgba(0, 0, 0, 0) 50%, 
-    rgba(255, 255, 255, 0.02) 50%
-  );
-  background-size: 100% 4px;
-  pointer-events: none;
-  animation: scanlines 1s linear infinite;
-  opacity: 0.3;
-}
-
-/* RESPONSIVE */
-@media (max-width: 768px) {
-  .signup-container {
-    padding: 1.8rem;
-  }
-  
-  .signup-container h2 {
-    font-size: 1.8rem;
-  }
-  
-  .cyber-input {
-    padding: 0.8rem;
-  }
-  
-  .cyber-button {
-    padding: 1rem 1.5rem;
-  }
-}
-
-.cyber-switch-account {
-  text-align: center;
-  color: var(--text-dim);
-  font-size: 0.9rem;
-  margin-top: 1.5rem;
-  letter-spacing: 0.5px;
+  color: red;
+  text-shadow: 0 0 5px red;
 }
 
 .cyber-switch-link {
-  color: var(--neon-pink);
-  cursor: pointer;
+  color: var(--neon-green);
   font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1px;
+  transition: 0.3s ease;
   position: relative;
-  padding: 0 2px;
-  transition: all 0.3s ease;
-  text-shadow: 0 0 5px rgba(255, 42, 109, 0.3);
 }
 
 .cyber-switch-link:hover {
   color: var(--neon-blue);
-  text-shadow: 0 0 10px var(--neon-blue);
+  text-shadow: 0 0 8px var(--neon-blue);
 }
 
 .cyber-switch-link::after {
-  content: '';
+  content: "";
   position: absolute;
-  bottom: -2px;
   left: 0;
+  bottom: -2px;
   width: 100%;
-  height: 1px;
-  background: var(--neon-pink);
+  height: 2px;
+  background: var(--neon-blue);
   transform: scaleX(0);
   transform-origin: right;
   transition: transform 0.3s ease;
@@ -259,5 +191,50 @@
 .cyber-switch-link:hover::after {
   transform: scaleX(1);
   transform-origin: left;
-  background: var(--neon-blue);
+}
+
+.signup-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    rgba(0, 0, 0, 0) 50%,
+    rgba(255, 255, 255, 0.02) 50%
+  );
+  background-size: 100% 4px;
+  pointer-events: none;
+  animation: scanlines 1s linear infinite;
+  opacity: 0.2;
+}
+
+@keyframes scanlines {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 0 4px;
+  }
+}
+
+.signup-form p {
+  color: white;
+}
+
+@media (max-width: 768px) {
+  .signup-container {
+    padding: 1.5rem;
+    margin: 1rem;
+  }
+
+  .signup-container h2 {
+    font-size: 1.5rem;
+  }
+
+  .signup-input,
+  .signup-button {
+    padding: 0.8rem;
+  }
 }
