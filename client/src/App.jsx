@@ -1,11 +1,13 @@
-import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import LandingPage from "./components/LandingPage";
-import Home from "./components/Home";
-import Courses from "./components/Courses";
-import Header from "./components/Header";
-import "./App.css";
-import User from "./components/User";
+import React from 'react'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { UserProvider } from './context/usercontext'
+import LandingPage from './components/LandingPage'
+import Home from './components/Home'
+import Courses from './components/Courses'
+import Header from './components/Header'
+import './App.css'
+import User from './components/User'
+import Profile from './components/Profile'
 
 // Layout with Header
 const Layout = ({ children }) => (
@@ -13,7 +15,7 @@ const Layout = ({ children }) => (
     <Header />
     {children}
   </>
-);
+)
 
 function App() {
   return (
@@ -37,9 +39,19 @@ function App() {
             </Layout>
           }
         />
+        <Route
+          path="/profile"
+          element={
+            <Layout>
+              <UserProvider>
+                <Profile />
+              </UserProvider>
+            </Layout>
+          }
+        />
       </Routes>
     </Router>
-  );
+  )
 }
 
-export default App;
+export default App
