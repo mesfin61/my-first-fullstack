@@ -1,6 +1,6 @@
 import axios from 'axios'
 import React, { useEffect, useState, useContext } from 'react'
-import { UserContext } from '../context/usercontext'
+import { UserContext } from '../context/UserContext'
 import { IoIosArrowRoundBack } from 'react-icons/io'
 import '../assets/styles/profile.css'
 
@@ -15,9 +15,14 @@ function AccountManagement({ onBack }) {
   }
 
   const handleSave = async () => {
+    const token = localStorage.getItem('token')
     try {
-      await axios.put('http://localhost:3001/profile/update', user)
-      alert('profileupdated successfully')
+      await axios.put('http://localhost:3001/profile/update', user, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      alert('profile updated successfully')
       setEditing(false)
     } catch (err) {
       console.error(err)
