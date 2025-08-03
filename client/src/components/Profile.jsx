@@ -9,7 +9,7 @@ import { MdDelete } from 'react-icons/md'
 import { IoIosArrowRoundBack } from 'react-icons/io'
 import '../assets/styles/profile.css'
 
-function PasswordChange({ onBack }) {
+function PasswordChange({ onBack, setSuccessMessage }) {
   const [userInput, setUserInput] = useState({
     password: '',
     new_password: '',
@@ -32,7 +32,7 @@ function PasswordChange({ onBack }) {
     try {
       setSubmitting(true)
       const token = localStorage.getItem('token')
-      await axios.patch(
+      const response = await axios.put(
         'http://localhost:3001/profile/update/password',
         userInput,
         {
@@ -41,11 +41,17 @@ function PasswordChange({ onBack }) {
           },
         },
       )
-      alert('Password changed successfully')
+
+      if (response.data.message === 'password update') {
+        setSuccessMessage('Password updated successfully.')
+        setTimeout(() => {
+          onBack()
+        }, 1500)
+      }
+
       setUserInput({ password: '', new_password: '', confirm_password: '' })
     } catch (err) {
       console.error(err)
-      alert('Failed to change password')
     } finally {
       setSubmitting(false)
     }
@@ -106,17 +112,28 @@ function Profile() {
   const { user, setUser } = useContext(UserContext)
   const [showActivity, setShowActivity] = useState(false)
   const [showPasswordActivity, setShowPasswordActivity] = useState(false)
+  const [successMessage, setSuccessMessage] = useState('')
 
   const handleLogout = () => {
     localStorage.removeItem('token')
     setUser(null)
-    window.location.href = '/' // or use navigate('/')
+    window.location.href = '/'
   }
 
-  if (!user) return <p>Loading profile...</p>
+  useEffect(() => {
+    if (successMessage) {
+      const timer = setTimeout(() => setSuccessMessage(''), 5000)
+      return () => clearTimeout(timer)
+    }
+  }, [successMessage])
 
   if (showPasswordActivity) {
-    return <PasswordChange onBack={() => setShowPasswordActivity(false)} />
+    return (
+      <PasswordChange
+        onBack={() => setShowPasswordActivity(false)}
+        setSuccessMessage={setSuccessMessage}
+      />
+    )
   }
 
   if (showActivity) {
@@ -132,6 +149,16 @@ function Profile() {
   return (
     <div className="profile-info">
       <h2>User Information</h2>
+
+      {successMessage && (
+        <p
+          className="success-message"
+          style={{ color: 'green', marginBottom: '10px' }}
+        >
+          {successMessage}
+        </p>
+      )}
+
       <div className="info">
         <p>User ID: {user.userId}</p>
         <p>

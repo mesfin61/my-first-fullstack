@@ -202,6 +202,15 @@
   font-size: 1.5rem;
 }
 
+.success-message {
+  padding: 8px 12px;
+  background-color: #e6ffe6;
+  border-left: 4px solid #4caf50;
+  border-radius: 4px;
+  color: #2e7d32;
+  font-weight: bold;
+}
+
 @media (max-width: 640px) {
   .profile-info,
   .password-change {

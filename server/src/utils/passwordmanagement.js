@@ -17,7 +17,7 @@ const password = async (req, res) => {
     const pool = await poolPromise;
     const result = await pool
       .request()
-      .input("password", mssql.VarChar, password)
+      .input("userId", mssql.Int, req.user.id)
       .query("SELECT * FROM userInfo where userId = @userId");
 
     const user = result.recordset[0];
@@ -28,6 +28,7 @@ const password = async (req, res) => {
 
     await pool
       .request()
+      .input("userId", mssql.Int, req.user.id)
       .input("new_password", mssql.VarChar, hashedPassword)
       .query(
         `UPDATE userInfo SET password = @new_password WHERE userId = @userId`
@@ -35,7 +36,7 @@ const password = async (req, res) => {
 
     return res.status(200).json({ message: "password update" });
   } catch (err) {
-    res.status(400).json({ message: err.message });
+    res.status(500).json({ message: err.message });
     console.error(err);
   }
 };
