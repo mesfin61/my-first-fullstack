@@ -31,7 +31,7 @@ function Login({ switchForm }) {
 
     try {
       const response = await axios.post(
-        'http://localhost:3001/api/auth/login',
+        'http://localhost:3000/api/auth/login',
         formData,
       )
       console.log('Login response:', response.data)
@@ -43,7 +43,7 @@ function Login({ switchForm }) {
         if (token) {
           localStorage.setItem('token', token)
 
-          const profileRes = await axios.get('http://localhost:3001/profile', {
+          const profileRes = await axios.get('http://localhost:3000/profile', {
             headers: {
               Authorization: `Bearer ${token}`,
             },

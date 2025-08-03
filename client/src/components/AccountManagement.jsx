@@ -6,6 +6,7 @@ import '../assets/styles/profile.css'
 
 function AccountManagement({ onBack }) {
   const { user, setUser } = useContext(UserContext)
+  const [message, setMessage] = useState('')
 
   const [editing, setEditing] = useState(false)
 
@@ -17,13 +18,23 @@ function AccountManagement({ onBack }) {
   const handleSave = async () => {
     const token = localStorage.getItem('token')
     try {
-      await axios.put('http://localhost:3001/profile/update', user, {
-        headers: {
-          Authorization: `Bearer ${token}`,
+      const response = await axios.put(
+        'http://localhost:3000/profile/update',
+        user,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         },
-      })
-      alert('profile updated successfully')
-      setEditing(false)
+      )
+
+      if (response.data.message === 'update successful') {
+        setMessage('Profile updated successfully')
+      }
+      setTimeout(() => {
+        onBack()
+        setEditing(false)
+      }, 1500)
     } catch (err) {
       console.error(err)
       alert('Error updating profile')
@@ -33,6 +44,8 @@ function AccountManagement({ onBack }) {
   return (
     <div className="account-management">
       <h2>Account Management</h2>
+
+      {message && <p className="message">{message}</p>}
 
       <label>First Name:</label>
       <input

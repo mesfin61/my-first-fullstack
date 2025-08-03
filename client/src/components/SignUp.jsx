@@ -30,7 +30,7 @@ function SignUp({ switchForm }) {
     setError(false)
     try {
       const response = await axios.post(
-        'http://localhost:3001/api/auth/signup',
+        'http://localhost:3000/api/auth/signup',
         formData,
       )
       const message = response.data.message?.toLowerCase()

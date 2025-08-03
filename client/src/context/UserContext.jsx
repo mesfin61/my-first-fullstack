@@ -9,7 +9,7 @@ export const UserProvider = ({ children }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:3001/profile')
+        const response = await axios.get('http://localhost:3000/profile')
         const users = response.data.result
         setUser(users[0])
       } catch (err) {

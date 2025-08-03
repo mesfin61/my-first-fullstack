@@ -33,7 +33,7 @@ function PasswordChange({ onBack, setSuccessMessage }) {
       setSubmitting(true)
       const token = localStorage.getItem('token')
       const response = await axios.put(
-        'http://localhost:3001/profile/update/password',
+        'http://localhost:3000/profile/update/password',
         userInput,
         {
           headers: {
