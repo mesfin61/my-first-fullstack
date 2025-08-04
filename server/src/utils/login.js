@@ -30,15 +30,12 @@ const login = async (req, res) => {
       .input("email", mssql.VarChar, email)
       .query("select * from userInfo where email = @email");
 
-    console.log("User found, login successful");
-
     if (result.recordset.length === 0) {
       return res.status(400).json({ message: "invalid email or password" });
     }
 
     const user = result.recordset[0];
     const isMatch = await bcrypt.compare(password, user.password);
-    console.log("Password match:", isMatch);
 
     if (!isMatch) {
       return res.status(400).json({ message: "invalid email or password" });
