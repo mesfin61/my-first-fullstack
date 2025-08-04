@@ -355,3 +355,61 @@
     width: 100%;
   }
 }
+
+/* delete account css styles */
+
+.delete-account {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 2rem;
+  max-width: 500px;
+  margin: 40px auto;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.delete-account h2 {
+  color: #e63946;
+  margin-bottom: 1rem;
+  font-size: 1.8rem;
+}
+
+.delete-account p {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 1.5rem;
+  line-height: 1.5;
+}
+
+.delete-button {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.delete-button button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.delete-button button:first-child {
+  background-color: #e63946;
+  color: white;
+}
+
+.delete-button button:first-child:hover {
+  background-color: #c82333;
+}
+
+.delete-button button:last-child {
+  background-color: #ddd;
+  color: black;
+}
+
+.delete-button button:last-child:hover {
+  background-color: #bbb;
+}

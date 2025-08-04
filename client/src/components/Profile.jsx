@@ -108,10 +108,58 @@ function PasswordChange({ onBack, setSuccessMessage }) {
   )
 }
 
+function DeleteAccount({ onBack }) {
+  const [message, setMessage] = useState('')
+
+  const handleDelete = async () => {
+    const token = localStorage.getItem('token')
+    const confirmDelete = window.confirm(
+      'Are you absolutely sure? This action cannot be undone.',
+    )
+    try {
+      const response = await axios.delete(
+        'http://localhost:3000/profile/delete',
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      )
+
+      if (response.data.message === 'Account deleted successfully') {
+        setMessage('Account deleted successfully. Redirecting to home...')
+        localStorage.removeItem('token')
+        setTimeout(() => {
+          window.location.href = '/'
+        }, 1500)
+      }
+    } catch (err) {
+      setMessage(err.response?.data?.message || 'Failed to delete account')
+    }
+  }
+
+  return (
+    <div className="delete-account">
+      <h2>Are sure you want to delete the account</h2>
+      <p>once you delete account you will not get access to this account</p>
+
+      <div className="delete-button">
+        <button type="button" onClick={handleDelete} defaultChecked>
+          yes
+        </button>
+        <button onClick={onBack} type="button">
+          no
+        </button>
+      </div>
+    </div>
+  )
+}
+
 function Profile() {
   const { user, setUser } = useContext(UserContext)
   const [showActivity, setShowActivity] = useState(false)
   const [showPasswordActivity, setShowPasswordActivity] = useState(false)
+  const [showDeleteActivity, setShowDeleteActivity] = useState(false)
   const [successMessage, setSuccessMessage] = useState('')
 
   const handleLogout = () => {
@@ -144,6 +192,10 @@ function Profile() {
         onBack={() => setShowActivity(false)}
       />
     )
+  }
+
+  if (showDeleteActivity) {
+    return <DeleteAccount onBack={() => setShowDeleteActivity(false)} />
   }
 
   return (
@@ -193,7 +245,12 @@ function Profile() {
         Log Out <CiLogout />
       </button>
 
-      <button type="button">
+      <button
+        onClick={() => {
+          setShowDeleteActivity(true)
+        }}
+        type="button"
+      >
         Delete Account <MdDelete />
       </button>
     </div>
