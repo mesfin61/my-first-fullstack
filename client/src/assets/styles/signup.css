@@ -14,8 +14,10 @@
   background: rgba(13, 2, 33, 0.92);
   border: 2px solid var(--neon-pink);
   border-radius: 1rem;
-  box-shadow: 0 0 20px var(--neon-pink), 0 0 40px rgba(255, 42, 109, 0.2);
-  font-family: "Rajdhani", sans-serif;
+  box-shadow:
+    0 0 20px var(--neon-pink),
+    0 0 40px rgba(255, 42, 109, 0.2);
+  font-family: 'Rajdhani', sans-serif;
   position: relative;
   overflow: hidden;
   animation: borderGlow 4s infinite alternate;
@@ -44,7 +46,7 @@
   font-size: 2rem;
   text-align: center;
   text-transform: uppercase;
-  font-family: "Orbitron", sans-serif;
+  font-family: 'Orbitron', sans-serif;
   margin-bottom: 2rem;
 }
 
@@ -52,6 +54,24 @@
   display: flex;
   flex-direction: column;
   gap: 1.2rem;
+}
+
+.full_name {
+  display: flex;
+  gap: 2.5rem;
+}
+
+.full_name .input-group {
+  flex: 1;
+}
+
+.password-group {
+  display: flex;
+  gap: 2.5rem;
+}
+
+.password-group .input-group {
+  flex: 1;
 }
 
 .input-group {
@@ -64,7 +84,7 @@
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid var(--neon-blue);
   color: var(--text-glow);
-  font-family: "Rajdhani", sans-serif;
+  font-family: 'Rajdhani', sans-serif;
   border-radius: 0.5rem;
   font-size: 1rem;
   transition: all 0.3s ease-in-out;
@@ -101,7 +121,7 @@
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid var(--neon-pink);
   color: var(--neon-pink);
-  font-family: "Orbitron", sans-serif;
+  font-family: 'Orbitron', sans-serif;
   font-weight: 700;
   letter-spacing: 2px;
   text-transform: uppercase;
@@ -176,7 +196,7 @@
 }
 
 .cyber-switch-link::after {
-  content: "";
+  content: '';
   position: absolute;
   left: 0;
   bottom: -2px;
@@ -194,7 +214,7 @@
 }
 
 .signup-container::before {
-  content: "";
+  content: '';
   position: absolute;
   top: 0;
   left: 0;
@@ -236,5 +256,10 @@
   .signup-input,
   .signup-button {
     padding: 0.8rem;
+  }
+
+  .full_name,
+  .password-group {
+    flex-direction: column;
   }
 }

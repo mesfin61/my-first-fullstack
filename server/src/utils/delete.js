@@ -14,7 +14,7 @@ const deleteAccount = async (req, res) => {
     await pool
       .request()
       .input("userId", mssql.Int, req.user.id)
-      .query(`DELETE FROM userInfo WHERE userId = userId`);
+      .query(`DELETE FROM userInfo WHERE userId = @userId`);
 
     return res.status(200).json({ message: "Account deleted successfully" });
   } catch (err) {

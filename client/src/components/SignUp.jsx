@@ -13,7 +13,7 @@ function SignUp({ switchForm }) {
     confirmPassword: '',
   })
   const [loading, setLoading] = useState(false)
-  const [message, setMessage] = useState(false)
+  const [message, setMessage] = useState('')
   const [error, setError] = useState(false)
 
   const handleChange = (e) => {
@@ -26,29 +26,43 @@ function SignUp({ switchForm }) {
   const handleSubmit = async (e) => {
     e.preventDefault()
     setLoading(true)
-    setMessage(false)
+    setMessage('')
     setError(false)
+
     try {
       const response = await axios.post(
         'http://localhost:3000/api/auth/signup',
         formData,
       )
-      const message = response.data.message?.toLowerCase()
-      if (message === 'sign up successful') {
-        setMessage('Account created successfully! redirecting to login...')
+
+      const msg = response.data.message?.toLowerCase()
+
+      if (msg.includes('success') || msg.includes('succees')) {
+        setMessage('Account created successfully! Redirecting to login...')
         setError(false)
+
+        setFormData({
+          first_name: '',
+          last_name: '',
+          username: '',
+          email: '',
+          phone_number: '',
+          password: '',
+          confirmPassword: '',
+        })
+
         setTimeout(() => {
           switchForm()
         }, 1500)
       } else {
-        setMessage(response.data.message || 'unexpected response from server')
+        setMessage(response.data.message || 'Unexpected server response')
         setError(true)
       }
     } catch (err) {
       console.error('Signup Error:', err.response || err.message)
-      const errorMessage =
-        err.response?.data?.message || 'An error occured during sign up'
-      setMessage(errorMessage)
+      setMessage(
+        err.response?.data?.message || 'An error occurred during sign up',
+      )
       setError(true)
     } finally {
       setLoading(false)
@@ -58,36 +72,36 @@ function SignUp({ switchForm }) {
   return (
     <div className="signup-container">
       <h2>SIGN UP</h2>
-      {message && (
-        <p
-          className={`message ${message.includes('successfully') ? '' : 'error'}`}
-        >
-          {message}
-        </p>
-      )}
-      <form className="signup-form" onSubmit={handleSubmit}>
-        <div className="input-group">
-          <input
-            type="text"
-            name="first_name"
-            value={formData.first_name}
-            onChange={handleChange}
-            placeholder="FIRST NAME"
-            className="signup-input"
-          />
-          <span className="input-highlight"></span>
-        </div>
 
-        <div className="input-group">
-          <input
-            type="text"
-            name="last_name"
-            value={formData.last_name}
-            onChange={handleChange}
-            placeholder="LAST NAME"
-            className="signup-input"
-          />
-          <span className="input-highlight"></span>
+      {message && (
+        <p className={`message ${error ? 'error' : ''}`}>{message}</p>
+      )}
+
+      <form className="signup-form" onSubmit={handleSubmit}>
+        <div className="full_name">
+          <div className="input-group">
+            <input
+              type="text"
+              name="first_name"
+              value={formData.first_name}
+              onChange={handleChange}
+              placeholder="FIRST NAME"
+              className="signup-input"
+            />
+            <span className="input-highlight"></span>
+          </div>
+
+          <div className="input-group">
+            <input
+              type="text"
+              name="last_name"
+              value={formData.last_name}
+              onChange={handleChange}
+              placeholder="LAST NAME"
+              className="signup-input"
+            />
+            <span className="input-highlight"></span>
+          </div>
         </div>
 
         <div className="input-group">
@@ -126,33 +140,35 @@ function SignUp({ switchForm }) {
           <span className="input-highlight"></span>
         </div>
 
-        <div className="input-group">
-          <input
-            type="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-            placeholder="PASSWORD"
-            className="signup-input"
-          />
-          <span className="input-highlight"></span>
-        </div>
+        <div className="password-group">
+          <div className="input-group">
+            <input
+              type="password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              placeholder="PASSWORD"
+              className="signup-input"
+            />
+            <span className="input-highlight"></span>
+          </div>
 
-        <div className="input-group">
-          <input
-            type="password"
-            name="confirmPassword"
-            value={formData.confirmPassword}
-            onChange={handleChange}
-            placeholder="CONFIRM PASSWORD"
-            className="signup-input"
-          />
-          <span className="input-highlight"></span>
+          <div className="input-group">
+            <input
+              type="password"
+              name="confirmPassword"
+              value={formData.confirmPassword}
+              onChange={handleChange}
+              placeholder="CONFIRM PASSWORD"
+              className="signup-input"
+            />
+            <span className="input-highlight"></span>
+          </div>
         </div>
 
         <button type="submit" className="signup-button">
-          <span className="signip-button-text">
-            {loading ? 'signing up...' : 'SIGN UP'}
+          <span className="signup-button-text">
+            {loading ? 'SIGNING UP...' : 'SIGN UP'}
           </span>
           <span className="signup-button-glitch"></span>
         </button>
