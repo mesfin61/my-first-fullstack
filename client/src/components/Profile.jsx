@@ -113,9 +113,6 @@ function DeleteAccount({ onBack }) {
 
   const handleDelete = async () => {
     const token = localStorage.getItem('token')
-    const confirmDelete = window.confirm(
-      'Are you absolutely sure? This action cannot be undone.',
-    )
     try {
       const response = await axios.delete(
         'http://localhost:3000/profile/delete',
