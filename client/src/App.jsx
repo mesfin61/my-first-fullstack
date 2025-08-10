@@ -1,6 +1,7 @@
 import React from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { UserProvider } from './context/UserContext'
+import { VideosProvider } from './context/videosContext'
 import LandingPage from './components/LandingPage'
 import Home from './components/Home'
 import Courses from './components/Courses'
@@ -21,42 +22,44 @@ const Layout = ({ children }) => (
 function App() {
   return (
     <UserProvider>
-      <Router>
-        <Routes>
-          <Route path="/" element={<LandingPage />} />
+      <VideosProvider>
+        <Router>
+          <Routes>
+            <Route path="/" element={<LandingPage />} />
 
-          <Route
-            path="/home"
-            element={
-              <Layout>
-                <PrivateRoute>
-                  <Home />
-                </PrivateRoute>
-              </Layout>
-            }
-          />
-          <Route
-            path="/courses"
-            element={
-              <Layout>
-                <PrivateRoute>
-                  <Courses />
-                </PrivateRoute>
-              </Layout>
-            }
-          />
-          <Route
-            path="/profile"
-            element={
-              <Layout>
-                <PrivateRoute>
-                  <Profile />
-                </PrivateRoute>
-              </Layout>
-            }
-          />
-        </Routes>
-      </Router>
+            <Route
+              path="/home"
+              element={
+                <Layout>
+                  <PrivateRoute>
+                    <Home />
+                  </PrivateRoute>
+                </Layout>
+              }
+            />
+            <Route
+              path="/courses"
+              element={
+                <Layout>
+                  <PrivateRoute>
+                    <Courses />
+                  </PrivateRoute>
+                </Layout>
+              }
+            />
+            <Route
+              path="/profile"
+              element={
+                <Layout>
+                  <PrivateRoute>
+                    <Profile />
+                  </PrivateRoute>
+                </Layout>
+              }
+            />
+          </Routes>
+        </Router>
+      </VideosProvider>
     </UserProvider>
   )
 }

@@ -34,7 +34,6 @@ function Login({ switchForm }) {
         'http://localhost:3000/api/auth/login',
         formData,
       )
-      console.log('Login response:', response.data)
 
       const message = response.data.message?.toLowerCase()
       if (message === 'login successfully') {
