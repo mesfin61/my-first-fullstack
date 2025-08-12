@@ -7,15 +7,15 @@ import Home from './components/Home'
 import Courses from './components/Courses'
 import Header from './components/Header'
 import './App.css'
-import User from './components/User'
 import Profile from './components/Profile'
 import PrivateRoute from './components/PrivateRoute'
+import Footer from './components/Footer'
 
-// Layout with Header
 const Layout = ({ children }) => (
   <>
     <Header />
-    {children}
+    <main>{children}</main>
+    <Footer />
   </>
 )
 
