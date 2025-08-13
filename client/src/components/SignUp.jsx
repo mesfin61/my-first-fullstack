@@ -16,6 +16,8 @@ function SignUp({ switchForm }) {
   const [message, setMessage] = useState('')
   const [error, setError] = useState(false)
 
+  const url = import.meta.env.VITE_API_URL
+
   const handleChange = (e) => {
     setFormData((prev) => ({
       ...prev,
@@ -30,10 +32,7 @@ function SignUp({ switchForm }) {
     setError(false)
 
     try {
-      const response = await axios.post(
-        'http://localhost:3000/api/auth/signup',
-        formData,
-      )
+      const response = await axios.post(`${url}/api/auth/signup`, formData)
 
       const msg = response.data.message?.toLowerCase()
 

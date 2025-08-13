@@ -7,6 +7,8 @@ export const UserProvider = ({ children }) => {
   const [user, setUser] = useState({})
   const [loading, setLoading] = useState(true)
 
+  const url = import.meta.env.VITE_API_URL
+
   useEffect(() => {
     const fetchData = async () => {
       const token = localStorage.getItem('token')
@@ -16,7 +18,7 @@ export const UserProvider = ({ children }) => {
       }
 
       try {
-        const response = await axios.get('http://localhost:3000/profile', {
+        const response = await axios.get(`${url}/profile`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

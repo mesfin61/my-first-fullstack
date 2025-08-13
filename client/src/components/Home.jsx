@@ -15,10 +15,12 @@ function Home() {
     total_videos: 0,
   })
 
+  const url = import.meta.env.VITE_API_URL
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/status')
+        const response = await axios.get(`${url}/status`)
         const data = response.data
         setStats(data)
       } catch (err) {

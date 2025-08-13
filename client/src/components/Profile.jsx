@@ -9,6 +9,8 @@ import { MdDelete } from 'react-icons/md'
 import { IoIosArrowRoundBack } from 'react-icons/io'
 import '../assets/styles/profile.css'
 
+const url = import.meta.env.VITE_API_URL
+
 function PasswordChange({ onBack, setSuccessMessage }) {
   const [userInput, setUserInput] = useState({
     password: '',
@@ -33,7 +35,7 @@ function PasswordChange({ onBack, setSuccessMessage }) {
       setSubmitting(true)
       const token = localStorage.getItem('token')
       const response = await axios.put(
-        'http://localhost:3000/profile/update/password',
+        `${url}/profile/update/password`,
         userInput,
         {
           headers: {
@@ -114,14 +116,11 @@ function DeleteAccount({ onBack }) {
   const handleDelete = async () => {
     const token = localStorage.getItem('token')
     try {
-      const response = await axios.delete(
-        'http://localhost:3000/profile/delete',
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+      const response = await axios.delete(`${url}/profile/delete`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
         },
-      )
+      })
 
       if (response.data.message === 'Account deleted successfully') {
         setMessage('Account deleted successfully. Redirecting to home...')

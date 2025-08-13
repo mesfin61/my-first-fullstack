@@ -16,6 +16,8 @@ function Login({ switchForm }) {
   const { setUser } = useContext(UserContext)
   const navigate = useNavigate()
 
+  const url = import.meta.env.VITE_API_URL
+
   const handleChange = (e) => {
     setFormData((prev) => ({
       ...prev,
@@ -30,10 +32,7 @@ function Login({ switchForm }) {
     setLoading(true)
 
     try {
-      const response = await axios.post(
-        'http://localhost:3000/api/auth/login',
-        formData,
-      )
+      const response = await axios.post(`${url}/api/auth/login`, formData)
 
       const message = response.data.message?.toLowerCase()
       if (message === 'login successfully') {
@@ -42,7 +41,7 @@ function Login({ switchForm }) {
         if (token) {
           localStorage.setItem('token', token)
 
-          const profileRes = await axios.get('http://localhost:3000/profile', {
+          const profileRes = await axios.get(`${url}/profile`, {
             headers: {
               Authorization: `Bearer ${token}`,
             },

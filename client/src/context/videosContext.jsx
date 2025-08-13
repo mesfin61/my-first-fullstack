@@ -8,6 +8,8 @@ export const VideosProvider = ({ children }) => {
   const [videos, setVideos] = useState([])
   const [loading, setLoading] = useState(true)
 
+  const url = import.meta.env.VITE_API_URL
+
   useEffect(() => {
     const fetchData = async () => {
       const token = localStorage.getItem('token')
@@ -17,7 +19,7 @@ export const VideosProvider = ({ children }) => {
       }
 
       try {
-        const response = await axios.get('http://localhost:3000/videos', {
+        const response = await axios.get(`${url}/videos`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

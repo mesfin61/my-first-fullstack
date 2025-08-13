@@ -10,6 +10,8 @@ function AccountManagement({ onBack }) {
 
   const [editing, setEditing] = useState(false)
 
+  const url = import.meta.env.VITE_API_URL
+
   const handleChange = (e) => {
     const { name, value } = e.target
     setUser((prev) => ({ ...prev, [name]: value }))
@@ -18,15 +20,11 @@ function AccountManagement({ onBack }) {
   const handleSave = async () => {
     const token = localStorage.getItem('token')
     try {
-      const response = await axios.put(
-        'http://localhost:3000/profile/update',
-        user,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+      const response = await axios.put(`${url}/profile/update`, user, {
+        headers: {
+          Authorization: `Bearer ${token}`,
         },
-      )
+      })
 
       if (response.data.message === 'update successful') {
         setMessage('Profile updated successfully')
