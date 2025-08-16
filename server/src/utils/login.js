@@ -11,6 +11,7 @@ const loginLimitter = rateLimit({
   },
   standardHeaders: true,
   legacyHeaders: false,
+  skipSuccessfulRequests: true,
 });
 
 const login = async (req, res) => {
@@ -47,7 +48,7 @@ const login = async (req, res) => {
     };
 
     const token = jwt.sign(payload, process.env.JWT_SECRET, {
-      expiresIn: "1h",
+      expiresIn: "24h",
     });
 
     return res.status(200).json({ message: "login successfully", token });

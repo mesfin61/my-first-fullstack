@@ -1,32 +1,33 @@
 import axios from 'axios'
-import { createContext, useEffect, useState } from 'react'
-import {} from 'react-router-dom'
+import { createContext, useEffect, useState, useContext } from 'react'
+import { UserContext } from './UserContext'
 
 export const VideosContext = createContext()
 
 export const VideosProvider = ({ children }) => {
+  const { user } = useContext(UserContext)
   const [videos, setVideos] = useState([])
   const [loading, setLoading] = useState(true)
 
   const url = import.meta.env.VITE_API_URL
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchVideos = async () => {
       const token = localStorage.getItem('token')
-      if (!token) {
+      if (!token || !user) {
+        setVideos([])
         setLoading(false)
         return
       }
 
       try {
+        setLoading(true)
         const response = await axios.get(`${url}/videos`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+          headers: { Authorization: `Bearer ${token}` },
         })
 
-        const video = response.data.videos
-        setVideos(Array.isArray(video) ? video : [])
+        const fetchedVideos = response.data.videos
+        setVideos(Array.isArray(fetchedVideos) ? fetchedVideos : [])
       } catch (err) {
         console.error('Error fetching videos', err)
         setVideos([])
@@ -35,8 +36,8 @@ export const VideosProvider = ({ children }) => {
       }
     }
 
-    fetchData()
-  }, [])
+    fetchVideos()
+  }, [user, url])
 
   return (
     <VideosContext.Provider value={{ videos, setVideos, loading }}>
