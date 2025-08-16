@@ -1,6 +1,6 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const { poolPromise, mssql } = require("../config/db");
+const pool = require("../config/db");
 const rateLimit = require("express-rate-limit");
 
 const loginLimitter = rateLimit({
@@ -15,30 +15,30 @@ const loginLimitter = rateLimit({
 
 const login = async (req, res) => {
   const { email, password } = req.body;
+
   if (!email || !password) {
-    return res.status(400).json({ message: "all fields are required" });
+    return res.status(400).json({ message: "All fields are required" });
   }
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if (!emailRegex.test(email)) {
+    return res.status(400).json({ message: "Invalid email format" });
   }
 
   try {
-    const pool = await poolPromise;
-    const result = await pool
-      .request()
-      .input("email", mssql.VarChar, email)
-      .query("select * from userInfo where email = @email");
+    const [rows] = await pool.query("SELECT * FROM userInfo WHERE email = ?", [
+      email,
+    ]);
 
-    if (result.recordset.length === 0) {
-      return res.status(400).json({ message: "invalid email or password" });
+    if (rows.length === 0) {
+      return res.status(400).json({ message: "Invalid email or password" });
     }
 
-    const user = result.recordset[0];
-    const isMatch = await bcrypt.compare(password, user.password);
+    const user = rows[0];
 
+    const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      return res.status(400).json({ message: "invalid email or password" });
+      return res.status(400).json({ message: "Invalid email or password" });
     }
 
     const payload = {
@@ -52,7 +52,8 @@ const login = async (req, res) => {
 
     return res.status(200).json({ message: "login successfully", token });
   } catch (err) {
-    return res.status(500).json({ message: `internal server error ` });
+    console.error("Error in login:", err);
+    return res.status(500).json({ message: "Internal server error" });
   }
 };
 

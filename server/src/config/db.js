@@ -1,29 +1,24 @@
-const mssql = require("mssql");
+const mysql = require("mysql2/promise");
 require("dotenv").config();
 
-const config = {
+const pool = mysql.createPool({
+  host: process.env.DB_HOST || "localhost",
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
-  server: process.env.DB_SERVER,
   database: process.env.DB_NAME,
-  options: {
-    instanceName: "SQLEXPRESS",
-    encrypt: true,
-    trustServerCertificate: true,
-  },
-};
+  waitForConnections: true,
+  connectionLimit: 10,
+  queueLimit: 0,
+});
 
-const poolPromise = new mssql.ConnectionPool(config)
-  .connect()
-  .then((pool) => {
-    console.log("connected to database successfully");
-    return pool;
+pool
+  .getConnection()
+  .then((conn) => {
+    console.log("Connected to MySQL database successfully");
+    conn.release();
   })
   .catch((err) => {
-    console.error("database connection failed:", err);
+    console.error("MySQL database connection failed:", err);
   });
 
-module.exports = {
-  mssql,
-  poolPromise,
-};
+module.exports = pool;

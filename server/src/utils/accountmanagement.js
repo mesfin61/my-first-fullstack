@@ -1,4 +1,4 @@
-const { poolPromise, mssql } = require("../config/db");
+const pool = require("../config/db"); // MySQL pool
 
 const account = async (req, res) => {
   const { first_name, last_name, username, email, phone_number } = req.body;
@@ -8,51 +8,39 @@ const account = async (req, res) => {
   }
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-  if (emailRegex.test(email) === false) {
-    return res.status(400).json({ message: "invalid emails" });
+  if (!emailRegex.test(email)) {
+    return res.status(400).json({ message: "Invalid email" });
   }
 
   try {
-    const pool = await poolPromise;
+    // 1️⃣ Check if email is used by another account
+    const [emailCheck] = await pool.query(
+      "SELECT * FROM userInfo WHERE email = ? AND userId != ?",
+      [email, req.user.id]
+    );
 
-    const emailCheck = await pool
-      .request()
-      .input("email", mssql.VarChar, email)
-      .input("userId", mssql.Int, req.user.id)
-      .query(
-        `SELECT * FROM userInfo WHERE email = @email AND userId != @userId`
-      );
-
-    if (emailCheck.recordset.length > 0) {
+    if (emailCheck.length > 0) {
       return res
         .status(409)
         .json({ message: "Email already in use by another account" });
     }
 
-    const result = await pool
-      .request()
-      .input("first_name", mssql.VarChar, first_name)
-      .input("last_name", mssql.VarChar, last_name)
-      .input("username", mssql.VarChar, username)
-      .input("email", mssql.VarChar, email)
-      .input("phone_number", mssql.VarChar, phone_number)
-      .input("userId", mssql.Int, req.user.id).query(`
-        UPDATE userInfo
-        SET first_name = @first_name,
-            last_name = @last_name,
-            email = @email,
-            phone_number = @phone_number
-        WHERE userId = @userId
-      `);
+    // 2️⃣ Update user information
+    const [result] = await pool.query(
+      `UPDATE userInfo
+       SET first_name = ?, last_name = ?, username = ?, email = ?, phone_number = ?
+       WHERE userId = ?`,
+      [first_name, last_name, username, email, phone_number, req.user.id]
+    );
 
-    if (result.rowsAffected[0] === 0) {
+    if (result.affectedRows === 0) {
       return res.status(404).json({ message: "User not found" });
     }
 
-    return res.status(200).json({ message: "update successful" });
+    return res.status(200).json({ message: "Update successful" });
   } catch (err) {
-    console.error(err);
+    console.error("Error updating account:", err);
+    return res.status(500).json({ message: "Internal server error" });
   }
 };
 

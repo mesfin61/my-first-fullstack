@@ -1,15 +1,17 @@
-const { poolPromise, mssql } = require("../config/db");
+const pool = require("../config/db");
 
 const profile = async (req, res) => {
   try {
-    const pool = await poolPromise;
-    const data = await pool
-      .request()
-      .input("userId", mssql.Int, req.user.id)
-      .query("SELECT * FROM userInfo WHERE userId = @userId");
+    const userId = req.user.id;
+    const [rows] = await pool.query("SELECT * FROM userInfo WHERE userId = ?", [
+      userId,
+    ]);
 
-    const result = data.recordset;
-    return res.status(200).json({ result });
+    if (rows.length === 0) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    return res.status(200).json({ result: rows });
   } catch (err) {
     console.error({ message: "Internal server error", error: err.message });
     return res.status(500).json({ message: "Internal server error" });

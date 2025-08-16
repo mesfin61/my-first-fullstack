@@ -1,5 +1,5 @@
 const cloudinary = require("../config/cloudinary");
-const { mssql, poolPromise } = require("../config/db");
+const pool = require("../config/db");
 
 const getVideos = async (req, res) => {
   try {
@@ -14,31 +14,24 @@ const getVideos = async (req, res) => {
       secure_url: video.secure_url.replace("/upload/", "/upload/f_mp4/"),
     }));
 
-    const pool = await poolPromise;
-
     const insertedVideos = [];
-
     for (const video of videosUrl) {
-      const checkVideos = await pool
-        .request()
-        .input("file_url", mssql.VarChar, video.secure_url)
-        .query(`SELECT * FROM videosInfo WHERE file_url = @file_url`);
+      const [rows] = await pool.query(
+        `SELECT * FROM videosInfo WHERE file_url = ?`,
+        [video.secure_url]
+      );
 
-      if (checkVideos.recordset.length > 0) {
+      if (rows.length > 0) {
         continue;
       }
 
-      await pool
-        .request()
-        .input("file_url", mssql.VarChar, video.secure_url)
-        .input("file_name", mssql.VarChar, video.public_id)
-        .query(
-          `INSERT INTO videosInfo (file_url, file_name) VALUES (@file_url, @file_name)`
-        );
+      await pool.query(
+        `INSERT INTO videosInfo (file_url, file_name) VALUES (?, ?)`,
+        [video.secure_url, video.public_id]
+      );
 
       insertedVideos.push(video);
     }
-
     return res.status(200).json({ videos: videosUrl });
   } catch (err) {
     console.error(err);

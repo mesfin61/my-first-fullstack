@@ -59,15 +59,30 @@ function Home() {
         <h2 className="total-info">About us</h2>
         <div className="stats">
           <div className="stat">
-            <CountUp start={0} end={stats.total_users} duration={3} />
+            <CountUp
+              start={0}
+              end={stats.total_users}
+              duration={3}
+              formattingFn={(value) => value.toString().padStart(2, '0')}
+            />
             <h3>Total users</h3>
           </div>
           <div className="stat">
-            <CountUp start={0} end={stats.total_courses} duration={3} />
+            <CountUp
+              start={0o0}
+              end={stats.total_courses}
+              duration={3}
+              formattingFn={(value) => value.toString().padStart(2, '0')}
+            />
             <h3>Total courses</h3>
           </div>
           <div className="stat">
-            <CountUp start={0} end={stats.total_videos} duration={3} />
+            <CountUp
+              start={0o0}
+              end={stats.total_videos}
+              duration={3}
+              formattingFn={(value) => value.toString().padStart(2, '0')}
+            />
             <h3>Total videos</h3>
           </div>
         </div>
