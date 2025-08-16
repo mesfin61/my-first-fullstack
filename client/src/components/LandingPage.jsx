@@ -1,15 +1,15 @@
-import React, { useState } from "react";
-import Login from "../components/Login";
-import SignUp from "../components/SignUp";
-import "../assets/styles/landingpage.css";
+import React, { useState } from 'react'
+import Login from '../components/Login'
+import SignUp from '../components/SignUp'
+import '../assets/styles/landingpage.css'
 
 function LandingPage() {
-  const [activeForm, setActiveForm] = useState("login");
+  const [activeForm, setActiveForm] = useState('login')
 
   return (
     <div className="landing-page">
       <header className="landing-header">
-        <h1 className="logo">CourseEra</h1>
+        <h1 className="logo">MyWay</h1>
       </header>
 
       <section className="motto">
@@ -36,10 +36,10 @@ function LandingPage() {
         </div>
 
         <div className="account">
-          {activeForm === "login" ? (
-            <Login switchForm={() => setActiveForm("signup")} />
+          {activeForm === 'login' ? (
+            <Login switchForm={() => setActiveForm('signup')} />
           ) : (
-            <SignUp switchForm={() => setActiveForm("login")} />
+            <SignUp switchForm={() => setActiveForm('login')} />
           )}
         </div>
       </section>
@@ -48,7 +48,7 @@ function LandingPage() {
         <p>&copy; 2025 Learning Platform. All rights reserved.</p>
       </footer>
     </div>
-  );
+  )
 }
 
-export default LandingPage;
+export default LandingPage

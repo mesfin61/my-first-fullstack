@@ -1,12 +1,12 @@
-import React from "react";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import { Link } from "react-router";
-import "../assets/styles/header.css";
+import React from 'react'
+import AccountCircleIcon from '@mui/icons-material/AccountCircle'
+import { Link } from 'react-router'
+import '../assets/styles/header.css'
 
 export default function Header() {
   return (
     <header className="header">
-      <h1 className="logo">CourseEra</h1>
+      <h1 className="logo">MyWay</h1>
       <div className="nav-link">
         <Link to="/home">home</Link>
         <Link to="/courses">courses</Link>
@@ -17,5 +17,5 @@ export default function Header() {
         </Link>
       </div>
     </header>
-  );
+  )
 }
