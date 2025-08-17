@@ -4,9 +4,16 @@ const user = require("./routes/user");
 require("dotenv").config();
 
 const app = express();
-app.use(cors());
+app.set("trust proxy", 1);
+app.use(
+  cors({
+    origin: "https://my-way-backend.up.railway.app",
+    credentials: true,
+  })
+);
 app.use(express.json());
 app.use(user);
+
 const PORT = process.env.PORT;
 
 app.listen(PORT, () => {
